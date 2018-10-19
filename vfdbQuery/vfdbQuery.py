@@ -19,11 +19,12 @@ def convert_to_path(ctx, param, value):
     return value
 
 
-@click.command(help="vfdbQuery is a simple script for querying an input genome assembly against the VFDB")
+@click.command(help="vfdbQuery is a simple script for querying an input genome assembly against the Virulence Factor "
+                    "Database (VFDB).")
 @click.option("-i", "--infile", type=click.Path(exists=True), required=True,
-              help='FASTA file that you want to search against VDB', callback=convert_to_path)
+              help='FASTA file that you want to search against VFDB', callback=convert_to_path)
 @click.option("-db", "--database", type=click.Path(exists=True), required=True,
-              help='Path to Virulence Factor Database (VDB)', callback=convert_to_path)
+              help='Path to Virulence Factor Database (VFDB)', callback=convert_to_path)
 def cli(infile, database):
     logging.basicConfig(
         format='\033[92m \033[1m %(asctime)s \033[0m %(message)s',
