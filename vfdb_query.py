@@ -1,4 +1,3 @@
-#!/bin/bash/ python3
 
 import os
 import click
