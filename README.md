@@ -13,9 +13,13 @@ pip install vfdbQuery
 ```bash
 Usage: vfdbQuery [OPTIONS]
 
+  vfdbQuery is a simple script for querying an input genome assembly against
+  the Virulence Factor Database (VFDB).
+
 Options:
-  -i, --infile PATH     FASTA file that you want to search against VDB
+  -i, --infile PATH     FASTA file that you want to search against VFDB
                         [required]
-  -db, --database PATH  Path to Virulence Factor Database (VDB)  [required]
+  -db, --database PATH  Path to Virulence Factor Database (VFDB)  [required]
   --help                Show this message and exit.
+
 ```
