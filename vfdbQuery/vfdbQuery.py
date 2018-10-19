@@ -19,7 +19,7 @@ def convert_to_path(ctx, param, value):
     return value
 
 
-@click.command()
+@click.command(help="vfdbQuery is a simple script for querying an input genome assembly against the VFDB")
 @click.option("-i", "--infile", type=click.Path(exists=True), required=True,
               help='FASTA file that you want to search against VDB', callback=convert_to_path)
 @click.option("-db", "--database", type=click.Path(exists=True), required=True,
@@ -30,7 +30,7 @@ def cli(infile, database):
         level=logging.INFO,
         datefmt='%Y-%m-%d %H:%M:%S')
 
-    logging.info("Started VDB Query")
+    logging.info(f"Started {Path(__file__).name}")
     check_all_dependencies()
 
     blast_file = blast(infile, database)
