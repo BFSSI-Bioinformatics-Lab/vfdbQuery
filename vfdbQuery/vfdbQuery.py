@@ -1,9 +1,15 @@
 import os
 import click
+import shutil
 import logging
 import subprocess
 import pandas as pd
 from pathlib import Path
+
+DEPENDENCIES = [
+    'blastn',
+    'makeblastdb'
+]
 
 
 def convert_to_path(ctx, param, value):
@@ -25,6 +31,7 @@ def cli(infile, database):
         datefmt='%Y-%m-%d %H:%M:%S')
 
     logging.info("Started VDB Query")
+    check_all_dependencies()
 
     blast_file = blast(infile, database)
     filtered_file = filter_blast(blast_file)
@@ -159,6 +166,37 @@ def generate_plot(filtered_filepath: Path):
     logging.info(f"Created plot at {pdf_path}")
     logging.info(f"Created plot at {png_path}")
     logging.info(f"Created CSV virulence activator count data at {csv_path}")
+
+
+def dependency_check(dependency: str) -> bool:
+    """
+    Checks if a given program is present in the user's $PATH
+    :param dependency: String of program name
+    :return: True if program is in $PATH, False if not
+    """
+    check = shutil.which(dependency)
+    if check is not None:
+        return True
+    else:
+        return False
+
+
+def check_all_dependencies():
+    # Dependency check
+    logging.info("Conducting dependency check...")
+    dependency_dict = dict()
+    for dependency in DEPENDENCIES:
+        dependency_dict[dependency] = dependency_check(dependency)
+    if False in dependency_dict.values():
+        logging.error("ERROR: Cannot locate some dependencies in $PATH...")
+        for key, value in dependency_dict.items():
+            if not value:
+                logging.error(f"Dependency missing: {key}")
+        quit()
+    else:
+        for key, value in dependency_dict.items():
+            logging.debug(f"Dependency {key}: {value}")
+    logging.info("Dependencies OK")
 
 
 if __name__ == "__main__":
