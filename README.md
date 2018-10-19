@@ -10,7 +10,7 @@ pip install vfdbQuery
 ```
 
 ### Usage
-```bash
+```
 Usage: vfdbQuery [OPTIONS]
 
   vfdbQuery is a simple script for querying an input genome assembly against
