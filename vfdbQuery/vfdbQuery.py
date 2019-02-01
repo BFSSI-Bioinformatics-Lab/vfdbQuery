@@ -140,8 +140,13 @@ def generate_plot(filtered_filepath: Path):
     }
 
     for target in df['stitle']:
+        target = target.strip()
+        logging.debug(f"Checking for {target}")
         if target in target_dict:
+            logging.debug(f"Found {target}")
             target_dict[target] += 1
+        else:
+            logging.debug(f"Could not find {target}")
 
     df_processed = pd.DataFrame(list(target_dict.items()), columns=['', 'Count'])
 
